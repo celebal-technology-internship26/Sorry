@@ -1,0 +1,932 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f8dce9">
+<title>A Little Something For Reemu 💗</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Dancing+Script:wght@500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --pink: #f4a6c1;
+  --rose: #d85d91;
+  --deep: #8c4268;
+  --purple: #a18bd7;
+  --cream: #fff9fc;
+  --text: #68475a;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  font-family: "DM Sans", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 10% 10%, #ffe5ef 0, transparent 35%),
+    radial-gradient(circle at 90% 80%, #e9e0ff 0, transparent 35%),
+    linear-gradient(135deg, #fff5f8, #f9efff);
+  overflow-x: hidden;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  border: 0;
+}
+
+button:focus-visible {
+  outline: 3px solid #a56bc4;
+  outline-offset: 4px;
+}
+
+#musicToggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 100;
+  background: rgba(255,255,255,.88);
+  color: var(--deep);
+  padding: 11px 15px;
+  border-radius: 30px;
+  box-shadow: 0 5px 20px #8c426822;
+  border: 1px solid #ffffff;
+  font-size: 13px;
+}
+
+.screen {
+  display: none;
+  min-height: 100svh;
+  width: 100%;
+  padding: 85px 18px 40px;
+  align-items: center;
+  justify-content: center;
+  animation: screenIn .75s ease both;
+}
+
+.screen.active {
+  display: flex;
+}
+
+.panel {
+  width: min(100%, 680px);
+  padding: clamp(25px, 6vw, 48px);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.9);
+  border-radius: 32px;
+  background: rgba(255,255,255,.76);
+  box-shadow:
+    0 25px 80px rgba(157, 91, 133, .12),
+    inset 0 1px 0 #fff;
+  backdrop-filter: blur(16px);
+}
+
+.panel::before {
+  content: "";
+  position: absolute;
+  width: 190px;
+  height: 190px;
+  border-radius: 50%;
+  background: #fbd6e5;
+  opacity: .23;
+  top: -100px;
+  right: -70px;
+  pointer-events: none;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #b47b9c;
+  margin-bottom: 16px;
+}
+
+h1, h2, h3 {
+  font-family: "Playfair Display", serif;
+  font-weight: 600;
+}
+
+.script {
+  font-family: "Dancing Script", cursive;
+  color: var(--rose);
+}
+
+.hero-title {
+  font-size: clamp(46px, 10vw, 76px);
+  line-height: 1.08;
+  color: #bd5d89;
+  margin-bottom: 14px;
+}
+
+.heading {
+  font-size: clamp(34px, 7vw, 49px);
+  color: #bd5d89;
+  line-height: 1.2;
+  margin-bottom: 18px;
+}
+
+p {
+  font-size: 15px;
+  line-height: 1.9;
+  margin: 12px 0;
+}
+
+.muted {
+  color: #a18194;
+  font-size: 12px;
+}
+
+.big-heart {
+  font-size: 55px;
+  display: inline-block;
+  margin-bottom: 15px;
+  animation: heartbeat 1.6s ease-in-out infinite;
+}
+
+.primary {
+  color: white;
+  background: linear-gradient(120deg, #e98bb0, #bb78c8);
+  padding: 15px 27px;
+  border-radius: 40px;
+  font-weight: 700;
+  font-size: 14px;
+  margin: 15px 5px 5px;
+  box-shadow: 0 10px 25px #d36b9b44;
+  transition: transform .25s, box-shadow .25s;
+}
+
+.primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px #d36b9b55;
+}
+
+.secondary {
+  color: #a5537d;
+  background: #fff0f6;
+  border: 1px solid #f0c3d7;
+  padding: 13px 23px;
+  border-radius: 40px;
+  margin: 10px 5px;
+  font-weight: 600;
+  transition: .2s;
+}
+
+.secondary:hover {
+  background: #ffe2ed;
+}
+
+.tag {
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 30px;
+  background: #fff0f6;
+  color: #b45c86;
+  font-size: 12px;
+  margin: 5px;
+}
+
+.divider {
+  width: 65px;
+  height: 3px;
+  border-radius: 5px;
+  background: linear-gradient(90deg, #efa4c3, #bda5e8);
+  margin: 22px auto;
+}
+
+.envelope {
+  width: 150px;
+  height: 110px;
+  margin: 25px auto;
+  position: relative;
+  background: #f2a9c5;
+  border-radius: 8px;
+  box-shadow: 0 12px 30px #c66d9640;
+  cursor: pointer;
+  transition: transform .4s;
+}
+
+.envelope:hover {
+  transform: translateY(-5px);
+}
+
+.envelope::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #e78db1;
+  clip-path: polygon(0 0, 50% 60%, 100% 0);
+  border-radius: 8px;
+}
+
+.envelope::after {
+  content: "♥";
+  position: absolute;
+  color: white;
+  font-size: 35px;
+  left: 50%;
+  top: 43%;
+  transform: translate(-50%,-50%);
+}
+
+.letter {
+  text-align: left;
+  background: linear-gradient(145deg, #fff9fc, #fff0f7);
+  padding: 25px;
+  border-radius: 20px;
+  border: 1px solid #f3d4e2;
+  box-shadow: inset 0 0 30px #f7dce833;
+  margin: 20px 0;
+}
+
+.letter p {
+  margin: 13px 0;
+}
+
+.letter .sign {
+  font-family: "Dancing Script", cursive;
+  font-size: 28px;
+  color: var(--rose);
+  text-align: right;
+  margin-top: 20px;
+}
+
+.slap-stage {
+  height: 250px;
+  max-width: 420px;
+  margin: 20px auto 5px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 25px;
+  background:
+    radial-gradient(circle at 50% 45%, #fff 0, #ffe9f2 55%, #f7e9ff 100%);
+  border: 1px solid #f4d4e2;
+}
+
+.character {
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 100px;
+  filter: drop-shadow(0 7px 4px #9d557522);
+  transform-origin: bottom center;
+}
+
+.hand {
+  position: absolute;
+  top: 72px;
+  left: -110px;
+  font-size: 82px;
+  opacity: 0;
+  z-index: 4;
+  transform: rotate(-35deg);
+}
+
+.slap-stage.hit .hand {
+  animation: handSlap .65s ease both;
+}
+
+.slap-stage.hit .character {
+  animation: characterHit .65s ease both;
+}
+
+.impact {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  font-family: "Dancing Script", cursive;
+  font-size: 43px;
+  font-weight: 700;
+  color: #d85d91;
+  z-index: 5;
+}
+
+.slap-stage.hit .impact {
+  animation: impactPop .7s ease both;
+}
+
+.slap-message {
+  min-height: 55px;
+  color: #b45c86;
+  font-weight: 600;
+  padding: 10px;
+}
+
+.music-note {
+  margin-top: 18px;
+  color: #aa8198;
+  font-size: 11px;
+}
+
+.bengali {
+  font-family: serif;
+  font-size: 20px;
+  color: #b65b87;
+  margin-top: 18px;
+}
+
+.choice-area {
+  margin-top: 25px;
+}
+
+.celebration {
+  font-size: 48px;
+  margin: 15px 0;
+  animation: heartbeat 1.1s infinite;
+}
+
+.sparkle {
+  position: fixed;
+  z-index: 1;
+  pointer-events: none;
+  animation: floatAway 7s linear forwards;
+  opacity: .8;
+}
+
+#toast {
+  position: fixed;
+  z-index: 200;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  opacity: 0;
+  background: #70445a;
+  color: white;
+  padding: 13px 20px;
+  border-radius: 30px;
+  font-size: 13px;
+  transition: .4s;
+  width: max-content;
+  max-width: 90%;
+}
+
+#toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+@keyframes screenIn {
+  from { opacity: 0; transform: translateY(20px) scale(.99); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes heartbeat {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.13); }
+}
+
+@keyframes handSlap {
+  0% { left: -110px; opacity: 0; transform: rotate(-35deg); }
+  35% { left: 40%; opacity: 1; transform: rotate(10deg); }
+  55% { left: 53%; opacity: 1; transform: rotate(25deg); }
+  100% { left: 110%; opacity: 0; transform: rotate(50deg); }
+}
+
+@keyframes characterHit {
+  0%,100% { transform: translateX(-50%) rotate(0); }
+  35% { transform: translateX(-50%) rotate(-12deg); }
+  55% { transform: translateX(-50%) rotate(17deg) translateY(8px); }
+  75% { transform: translateX(-50%) rotate(-8deg); }
+}
+
+@keyframes impactPop {
+  0% { transform: translateX(-50%) scale(0) rotate(-20deg); opacity: 0; }
+  45% { transform: translateX(-50%) scale(1.3) rotate(8deg); opacity: 1; }
+  100% { transform: translateX(-50%) scale(1) rotate(0); opacity: 0; }
+}
+
+@keyframes floatAway {
+  0% { transform: translateY(0) rotate(0); opacity: .8; }
+  100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+}
+
+@media (max-width: 520px) {
+  .screen { padding: 75px 13px 25px; }
+  .panel { border-radius: 25px; padding: 27px 19px; }
+  p { font-size: 14px; }
+  .letter { padding: 19px; }
+  .slap-stage { height: 220px; }
+  .character { font-size: 85px; }
+  #musicToggle { top: 10px; right: 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<button id="musicToggle" onclick="toggleMusic()">♫ Music On</button>
+<div id="toast"></div>
+
+<!-- PAGE 1: THE WELCOME -->
+<section class="screen active" id="welcome">
+  <main class="panel">
+    <div class="eyebrow">A tiny website • A sincere message</div>
+    <div class="big-heart">💗</div>
+    <h1 class="hero-title">Hey, Reemu!</h1>
+    <p>So... I made something for you.</p>
+    <p>It's a little different from a normal message.</p>
+    <p>Thoda cute, thoda funny, aur honestly... dil se.</p>
+
+    <div class="divider"></div>
+
+    <span class="tag">Made with effort</span>
+    <span class="tag">A little awkward</span>
+    <span class="tag">100% sincere</span>
+
+    <div class="envelope" onclick="begin()"></div>
+    <p class="muted">A letter is waiting inside...</p>
+
+    <button class="primary" onclick="begin()">Tap to open your letter 💌</button>
+    <p class="music-note">Best experienced with sound on 🎧</p>
+  </main>
+</section>
+
+<!-- PAGE 2: THE SLAP -->
+<section class="screen" id="slapPage">
+  <main class="panel">
+    <div class="eyebrow">Before we get serious...</div>
+    <h2 class="heading">I know, I know. 😭</h2>
+    <p>I probably deserve a little punishment.</p>
+
+    <div class="slap-stage" id="slapStage">
+      <div class="impact" id="impact">POW! 💥</div>
+      <div class="hand">🖐🏻</div>
+      <div class="character" id="character">🙋🏻‍♂️</div>
+    </div>
+
+    <div class="slap-message" id="slapMessage">
+      Reemu, your turn. I won't run away. 😂
+    </div>
+
+    <button class="primary" onclick="slapMe()">Give me a slap! 😂</button>
+    <br>
+    <button class="secondary" onclick="goTo('apologyPage')">
+      Okay, serious mode now 💗
+    </button>
+
+    <p class="muted">Class Representative powers activated? 👀</p>
+  </main>
+</section>
+
+<!-- PAGE 3: THE APOLOGY -->
+<section class="screen" id="apologyPage">
+  <main class="panel">
+    <div class="eyebrow">No jokes for a moment</div>
+    <div class="big-heart">🥺</div>
+    <h2 class="heading">I'm genuinely sorry.</h2>
+
+    <div class="letter">
+      <p><strong>Dear Reemu,</strong></p>
+
+      <p>I want to be honest with you, properly this time.</p>
+
+      <p>When I first started talking to you, I made an excuse instead of telling you the truth. I should have been honest from the very beginning. Later, I told you the truth, but that doesn't make my initial lie okay.</p>
+
+      <p>I take responsibility for that. I am not going to make excuses or try to justify it.</p>
+
+      <p>I genuinely enjoyed talking to you. You listened to me, gave me your time, and I appreciated those conversations more than I probably expressed.</p>
+
+      <p>I understand that my actions may have changed the way you see me. I feel bad that I gave you a reason to doubt my honesty.</p>
+
+      <p>I never wanted our conversations to become uncomfortable. I should have respected your trust by being straightforward from day one.</p>
+
+      <p><strong>I'm sorry, Reemu. Truly.</strong></p>
+
+      <p class="sign">— Ayaz ❤️</p>
+    </div>
+
+    <button class="primary" onclick="goTo('morePage')">
+      There's something else I want to say 🌷
+    </button>
+  </main>
+</section>
+
+<!-- PAGE 4: PERSONAL TOUCH -->
+<section class="screen" id="morePage">
+  <main class="panel">
+    <div class="eyebrow">One more thing, from my heart</div>
+    <h2 class="heading">A little appreciation...</h2>
+
+    <p>You are the class representative, so I guess you already have enough responsibilities. 😂</p>
+
+    <p>But jokes apart, I liked how naturally you listened and talked. I valued that friendship, and I don't want to pretend it meant nothing to me.</p>
+
+    <p>I also used to remind you about namaz because I meant it sincerely. It was my way of encouraging something I believed was important—not a way to judge you or put any pressure on you.</p>
+
+    <div class="divider"></div>
+
+    <p class="bengali">তোমার হাসিটা সবসময় সুন্দর থাকুক। 💗</p>
+    <p class="muted">May your smile always stay beautiful.</p>
+
+    <p>And one small thing from Asansol to this little website: your Bengali deserves its own special corner. 🌸</p>
+
+    <p>I don't expect everything to become normal instantly. I just hope you can understand that this apology is sincere.</p>
+
+    <button class="primary" onclick="goTo('forgivePage')">
+      One last question... 🥹
+    </button>
+  </main>
+</section>
+
+<!-- PAGE 5: FORGIVENESS -->
+<section class="screen" id="forgivePage">
+  <main class="panel">
+    <div class="eyebrow">The last page</div>
+    <div class="big-heart">💗</div>
+    <h1 class="hero-title">Reemu...</h1>
+
+    <h2 class="heading">Can we be okay?</h2>
+
+    <p>I know a website cannot undo a mistake.</p>
+    <p>Only my actions from now on can show that I have learned from it.</p>
+    <p>But I wanted to say sorry in a way that was a little more thoughtful than just typing two words.</p>
+
+    <div class="divider"></div>
+
+    <p><strong>Would you forgive me?</strong></p>
+
+    <div class="choice-area">
+      <button class="primary" onclick="forgive()">I forgive you 💗</button>
+      <br>
+      <button class="secondary" onclick="needTime()">I need some time 🌸</button>
+    </div>
+
+    <p class="muted">No pressure. Your choice matters.</p>
+  </main>
+</section>
+
+<!-- PAGE 6: HAPPY ENDING -->
+<section class="screen" id="happyPage">
+  <main class="panel">
+    <div class="eyebrow">A new little beginning</div>
+    <div class="celebration">🎉💗🌸✨</div>
+
+    <h1 class="hero-title">Thank you!</h1>
+    <h2 class="heading">Reemu, you're sweet.</h2>
+
+    <p>Okay, now this website can finally stop being emotional. 😂</p>
+    <p>Thank you for accepting my apology.</p>
+    <p>I will remember the lesson: honesty from the beginning.</p>
+
+    <div class="divider"></div>
+
+    <p class="bengali">ভালো থেকো, রিমু! 💕</p>
+    <p class="muted">Stay happy and take care, Reemu.</p>
+
+    <div class="celebration">🥳💞🦋</div>
+
+    <p>And yes, the CR is officially allowed to close this case. 😂</p>
+
+    <h2 class="script" style="font-size:36px;margin-top:25px">
+      With a sincere apology,<br>Ayaz
+    </h2>
+  </main>
+</section>
+
+<audio id="songOne" preload="auto" loop></audio>
+<audio id="songTwo" preload="auto" loop></audio>
+
+<script>
+/* ================================================
+   BASIC PAGE NAVIGATION
+================================================ */
+
+const allScreens = document.querySelectorAll(".screen");
+
+function goTo(pageId) {
+  allScreens.forEach(page => page.classList.remove("active"));
+  document.getElementById(pageId).classList.add("active");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+/* ================================================
+   MUSIC SYSTEM
+================================================ */
+
+const songOne = document.getElementById("songOne");
+const songTwo = document.getElementById("songTwo");
+const musicToggle = document.getElementById("musicToggle");
+
+let musicMuted = false;
+let firstSongHasStarted = false;
+let secondSongHasStarted = false;
+let currentFade = null;
+
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.classList.add("show");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2800);
+}
+
+function setMusicButton() {
+  musicToggle.textContent = musicMuted
+    ? "♫ Music Off"
+    : "♫ Music On";
+}
+
+function fadeVolume(audio, targetVolume, duration) {
+  if (currentFade) {
+    clearInterval(currentFade);
+    currentFade = null;
+  }
+
+  const initialVolume = audio.volume;
+  const totalSteps = 60;
+  let currentStep = 0;
+
+  currentFade = setInterval(() => {
+    currentStep++;
+
+    const progress = Math.min(currentStep / totalSteps, 1);
+    const smoothProgress =
+      progress * progress * (3 - 2 * progress);
+
+    const volume =
+      initialVolume +
+      (targetVolume - initialVolume) * smoothProgress;
+
+    audio.volume = musicMuted ? 0 : volume;
+
+    if (progress >= 1) {
+      clearInterval(currentFade);
+      currentFade = null;
+    }
+  }, duration / totalSteps);
+}
+
+async function startFirstSong() {
+  if (firstSongHasStarted || !songOne.src) return;
+
+  try {
+    songOne.volume = musicMuted ? 0 : 0.01;
+    await songOne.play();
+
+    firstSongHasStarted = true;
+    fadeVolume(songOne, 0.32, 6500);
+  } catch (error) {
+    showToast("Tap the music button if the song does not start.");
+    console.log("First song could not play:", error);
+  }
+}
+
+function begin() {
+  startFirstSong();
+  goTo("slapPage");
+}
+
+function toggleMusic() {
+  musicMuted = !musicMuted;
+
+  songOne.muted = musicMuted;
+  songTwo.muted = musicMuted;
+
+  setMusicButton();
+
+  if (!musicMuted) {
+    if (secondSongHasStarted) {
+      songTwo.play().catch(() => {});
+    } else if (firstSongHasStarted) {
+      songOne.play().catch(() => {});
+    } else {
+      startFirstSong();
+    }
+  }
+}
+
+/* ================================================
+   FUNNY SLAP ANIMATION + SOUND
+================================================ */
+
+let slapCount = 0;
+
+const slapMessages = [
+  "OUCH! That was personal. 😭",
+  "I deserved that one. 🥲",
+  "CR ma'am, please have mercy! 😂",
+  "Okay, my ears are ringing now! 🤣",
+  "I surrender. You win. 🏳️",
+  "No appeal against this decision. 😭"
+];
+
+function slapSound() {
+  try {
+    const AudioContext =
+      window.AudioContext || window.webkitAudioContext;
+
+    const context = new AudioContext();
+    const duration = 0.20;
+
+    const buffer = context.createBuffer(
+      1,
+      context.sampleRate * duration,
+      context.sampleRate
+    );
+
+    const channel = buffer.getChannelData(0);
+
+    for (let i = 0; i < channel.length; i++) {
+      const fade = 1 - i / channel.length;
+      channel[i] = (Math.random() * 2 - 1) * fade * fade;
+    }
+
+    const source = context.createBufferSource();
+    source.buffer = buffer;
+
+    const filter = context.createBiquadFilter();
+    filter.type = "lowpass";
+    filter.frequency.value = 950;
+
+    const gain = context.createGain();
+    gain.gain.setValueAtTime(0.7, context.currentTime);
+    gain.gain.exponentialRampToValueAtTime(
+      0.001,
+      context.currentTime + duration
+    );
+
+    source.connect(filter);
+    filter.connect(gain);
+    gain.connect(context.destination);
+
+    source.start();
+  } catch (error) {
+    console.log("Slap sound unavailable:", error);
+  }
+}
+
+function slapMe() {
+  slapCount++;
+
+  const stage = document.getElementById("slapStage");
+  const message = document.getElementById("slapMessage");
+  const impact = document.getElementById("impact");
+
+  stage.classList.remove("hit");
+
+  // Restart the animation
+  void stage.offsetWidth;
+
+  stage.classList.add("hit");
+  slapSound();
+
+  impact.textContent =
+    slapCount % 2 === 0 ? "WHACK! 💥" : "POW! 💥";
+
+  message.textContent =
+    slapMessages[(slapCount - 1) % slapMessages.length];
+}
+
+/* ================================================
+   FORGIVENESS AND THE SECOND SONG
+================================================ */
+
+function needTime() {
+  showToast("Of course. Take your time, Reemu. 🌷");
+  // No page change, no second song.
+  // Song One continues playing.
+}
+
+async function forgive() {
+  if (secondSongHasStarted) return;
+
+  if (!songTwo.src) {
+    showToast("The second song link is missing. Please check the code.");
+    return;
+  }
+
+  secondSongHasStarted = true;
+
+  // Move to the new page only after forgiveness is clicked.
+  goTo("happyPage");
+
+  // Fade out Song One.
+  if (firstSongHasStarted && !songOne.paused) {
+    fadeVolume(songOne, 0, 3500);
+
+    setTimeout(() => {
+      songOne.pause();
+      songOne.currentTime = 0;
+    }, 3600);
+  }
+
+  // Start the celebration song.
+  try {
+    songTwo.volume = musicMuted ? 0 : 0.01;
+    await songTwo.play();
+
+    fadeVolume(songTwo, 0.90, 4500);
+    celebrate();
+  } catch (error) {
+    showToast("Celebration is ready! Check the second song link.");
+    console.log("Second song could not play:", error);
+  }
+}
+
+/* ================================================
+   CELEBRATION EFFECTS
+================================================ */
+
+function celebrate() {
+  const symbols = [
+    "💗", "💕", "🌸", "✨", "💖",
+    "🦋", "💞", "🌷", "🎀", "⭐"
+  ];
+
+  let count = 0;
+
+  const interval = setInterval(() => {
+    const item = document.createElement("div");
+
+    item.className = "sparkle";
+    item.textContent =
+      symbols[Math.floor(Math.random() * symbols.length)];
+
+    item.style.left = Math.random() * 100 + "vw";
+    item.style.bottom = "-30px";
+    item.style.fontSize = (18 + Math.random() * 25) + "px";
+
+    document.body.appendChild(item);
+
+    setTimeout(() => item.remove(), 7200);
+
+    count++;
+
+    if (count >= 55) {
+      clearInterval(interval);
+    }
+  }, 120);
+}
+
+/* ================================================
+   KEYBOARD ACCESSIBILITY
+================================================ */
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") {
+    showToast("Take your time. No rush. 💗");
+  }
+});
+
+/* ================================================
+   AUDIO ERROR HANDLING
+================================================ */
+
+songOne.addEventListener("error", () => {
+  console.log("Song One URL could not be loaded.");
+});
+
+songTwo.addEventListener("error", () => {
+  console.log("Song Two URL could not be loaded.");
+});
+
+setMusicButton();
+
+/* =================================================
+   IMPORTANT: YOUR TWO SONG LINKS GO BELOW.
+   PASTE DIRECT MP3 / WAV / OGG AUDIO URLS.
+   DO NOT PASTE YOUTUBE OR SPOTIFY SHARE-PAGE LINKS.
+================================================= */
+
+// >>> SONG 1 LINK: EMOTIONAL BACKGROUND SONG <<<
+// Replace the text inside the quotes with your first direct audio link.
+songOne.src = "s1.1.mp3";
+
+// >>> SONG 2 LINK: HAPPY CELEBRATION SONG <<<
+// Replace the text inside the quotes with your second direct audio link.
+songTwo.src = "s1.mp3";
+
+// =================================================
+// END OF CUSTOMIZATION
+// =================================================
+</script>
+
+</body>
+</html>
